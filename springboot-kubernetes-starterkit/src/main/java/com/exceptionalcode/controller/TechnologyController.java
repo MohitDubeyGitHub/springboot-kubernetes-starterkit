@@ -1,25 +1,38 @@
 package com.exceptionalcode.controller;
 
 import com.exceptionalcode.model.Technology;
-import com.exceptionalcode.repository.TechnologyRepository;
-import lombok.RequiredArgsConstructor;
+import com.exceptionalcode.service.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping
-@RequiredArgsConstructor
+@RequestMapping(value = "/technology")
 public class TechnologyController {
 
     @Autowired
-    private TechnologyRepository technologyRepository;
+    private TechnologyService technologyService;
 
-    @GetMapping(value = "/technology")
-    public List<Technology> viewAll() {
-        return technologyRepository.findAll();
+    @GetMapping
+    public ResponseEntity<List<Technology>> viewAll() {
+        return new ResponseEntity<>(technologyService.findAllTechnologies(), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public void addTechnology(@RequestBody Technology technology) {
+        technologyService.addTechnology(technology);
+    }
+
+    @PutMapping("/{name}")
+    public ResponseEntity<?> updateTechnology(@RequestBody Technology technology, @PathVariable String name) throws Exception {
+        return new ResponseEntity<>(technologyService.updateTechnology(technology, name), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{name}")
+    public void deleteTechnology(@PathVariable String name) throws Exception {
+        technologyService.deleteTechnology(name);
     }
 }
