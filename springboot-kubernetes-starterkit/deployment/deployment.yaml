@@ -1,12 +1,13 @@
+# Deployment resource for spring boot application
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springbootk8sdbconnect
+  name: springbootk8sdbconnect # Name of deployement
   labels:
-    "springboot": k8s
+    "springboot": k8s # Label of the spring deployment
 spec:
-  replicas: 1
-  revisionHistoryLimit: 5
+  replicas: 1 # Keep 1 replica
+  revisionHistoryLimit: 5 # Keep last 5 revisions for future rollbacks
   selector:
     matchLabels:
       app: springbootk8sdbconnect
@@ -16,47 +17,44 @@ spec:
         app: springbootk8sdbconnect
     spec:
       containers:
-        - image: ishaansolanki6/springbootk8s_v3
-          imagePullPolicy: Always
+        - image: ishaansolanki6/springbootk8s:0.0.1 # Pull the image from registry
+          imagePullPolicy: Always # Always pull a new image
           name: springbootk8sdbconnect
           resources:
             requests:
               cpu: 100m
               memory: 1Gi
-          env:
-            - name: SPRING_DATASOURCE_URL
+          env: # Environment variable for spring boot application
+            - name: SPRING_DATASOURCE_URL 
               valueFrom:
-                configMapKeyRef:
+                configMapKeyRef: # Set datasource from configmap
                   name: mysql-config
                   key: MYSQL_DATABASE_URL
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
-                secretKeyRef:
+                secretKeyRef: # Set mysql username from secrets
                   name: mysql-secret
                   key: MYSQL_USER
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
-                secretKeyRef:
+                secretKeyRef: # Set mysql password from secrets
                   name: mysql-secret
                   key: MYSQL_PASSWORD
-          livenessProbe:
-            tcpSocket:
-              port: 8080
           ports:
-            - containerPort: 8080
+            - containerPort: 8080 # Application to run on 8080 port inside the container
 
 ---
-
+# Service resource to access application from outside world
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-springboot
+  name: springbootk8s-service
   labels:
     "springboot": k8s
 spec:
   ports:
-    - port: 8080
+    - port: 8080 # Host access port for application
       protocol: TCP
   selector:
     app: springbootk8sdbconnect
-  type: LoadBalancer
+  type: LoadBalancer # Uses external service

@@ -1,28 +1,29 @@
-apiVersion: v1
+# Service resource to expose mysql to other service
+apiVersion: v1 
 kind: Service
 metadata:
-  name: mysql
+  name: mysql # DNS name
   labels:
     app: mysql
 spec:
-  #type: NodePort
   ports:
     - port: 3306
-      #nodePort: 31000
   selector:
-    app: mysql
+    app: mysql  
 ---
+# Persistent Volume Claim(PVC) for mysql data storage
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
+  name: mysql-pv-claim # Name of PVC to identify the storage data
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce # This will attach to one container at time
   resources:
     requests:
-      storage: 5Gi
+      storage: 1Gi #1Gi of block storage for PVC
 ---
+# Deployement resource configuration of Mysql
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,6 +31,8 @@ metadata:
   labels:
     app: mysql
 spec:
+  replicas: 1 # 1 replica for mysql
+  revisionHistoryLimit: 5 # Keep last 5 copies of this deployment for rollback
   selector:
     matchLabels:
       app: mysql
@@ -41,59 +44,63 @@ spec:
         app: mysql
     spec:
       containers:
-        - image: mysql:8
+        - image: mysql:8 # mysql version 8
           name: mysql
           resources:
             limits:
               memory: "1Gi"
-              cpu: "1"
+              cpu: "1" # This container use 1 CPU
             requests:
-              memory: "500Mi"
+              memory: "500Mi" # Assign 500Mi memory to Mysql container 
               cpu: "500m"
-          env:
+          env:  # Environment variable pull value from secrets and config map
             - name: MYSQL_DATABASE
               valueFrom:
-                configMapKeyRef:
+                configMapKeyRef: # Pull from ConfigMap
                   name: mysql-config
                   key: MYSQL_DATABASE
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
-                secretKeyRef:
+                secretKeyRef: # Pull from Secrets
                   name: mysql-secret
                   key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_USER
               valueFrom:
-                secretKeyRef:
+                secretKeyRef: # Pull from Secrets
                   name: mysql-secret
                   key: MYSQL_USER
             - name: MYSQL_PASSWORD
               valueFrom:
-                secretKeyRef:
+                secretKeyRef: # Pull from Secrets
                   name: mysql-secret
                   key: MYSQL_PASSWORD
           ports:
             - containerPort: 3306
               name: mysql
-          volumeMounts:
-            - name: mysql-persistent-storage
-              mountPath: /var/lib/mysql
+          volumeMounts:  # Volume mount from PVC to be mounted on a perticular directory of a container
+            - name: mysql-persistent-storage # Name of mount point
+              mountPath: /var/lib/mysql # Path in container where data will be mount from PVC
             - name: initdb
               mountPath: /docker-entrypoint-initdb.d
-      volumes:
+      volumes: 
         - name: mysql-persistent-storage
           persistentVolumeClaim:
-            claimName: mysql-pv-claim
+            claimName: mysql-pv-claim # Which PVC to be used 
         - name: initdb
-          configMap:
+          configMap:  # Populate the volume with config map data
             name: mysql-config
 ---
+# ConfigMap is a dictionary of configuration settings
+# ConfigMap to keep your application code separate from your configuration.
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mysql-config
 data:
-  MYSQL_DATABASE: technologydb
-  MYSQL_DATABASE_URL: jdbc:mysql://mysql/technologydb
+  # Configuration values can be set as key-value properties
+  MYSQL_DATABASE: technologydb # Which database to use
+  MYSQL_DATABASE_URL: jdbc:mysql://mysql/technologydb # Host URL of database
+  # Or set as complete file contents (even SQL)  
   initdb.sql: |
     use technologydb;
     CREATE TABLE technology (name VARCHAR(20), framework VARCHAR(20));
