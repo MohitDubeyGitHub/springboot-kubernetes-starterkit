@@ -1,0 +1,11 @@
+# Persistent Volume Claim(PVC) for mysql data storage
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim # Name of PVC to identify the storage data
+spec:
+  accessModes:
+    - ReadWriteOnce # This will attach to one container at time
+  resources:
+    requests:
+      storage: 1Gi #1Gi of block storage for PVC

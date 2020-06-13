@@ -1,0 +1,12 @@
+# Service resource to expose mysql to other service
+apiVersion: v1 
+kind: Service
+metadata:
+  name: mysql # DNS name
+  labels:
+    app: mysql
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: mysql

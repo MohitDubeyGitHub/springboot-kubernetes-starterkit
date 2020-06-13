@@ -1,28 +1,3 @@
-# Service resource to expose mysql to other service
-apiVersion: v1 
-kind: Service
-metadata:
-  name: mysql # DNS name
-  labels:
-    app: mysql
-spec:
-  ports:
-    - port: 3306
-  selector:
-    app: mysql  
----
-# Persistent Volume Claim(PVC) for mysql data storage
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pv-claim # Name of PVC to identify the storage data
-spec:
-  accessModes:
-    - ReadWriteOnce # This will attach to one container at time
-  resources:
-    requests:
-      storage: 1Gi #1Gi of block storage for PVC
----
 # Deployement resource configuration of Mysql
 apiVersion: apps/v1
 kind: Deployment
@@ -89,19 +64,3 @@ spec:
         - name: initdb
           configMap:  # Populate the volume with config map data
             name: mysql-config
----
-# ConfigMap is a dictionary of configuration settings
-# ConfigMap to keep your application code separate from your configuration.
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mysql-config
-data:
-  # Configuration values can be set as key-value properties
-  MYSQL_DATABASE: technologydb # Which database to use
-  MYSQL_DATABASE_URL: jdbc:mysql://mysql/technologydb # Host URL of database
-  # Or set as complete file contents (even SQL)  
-  initdb.sql: |
-    use technologydb;
-    CREATE TABLE technology (name VARCHAR(20), framework VARCHAR(20));
-    INSERT INTO technology VALUES ('java','springboot');
