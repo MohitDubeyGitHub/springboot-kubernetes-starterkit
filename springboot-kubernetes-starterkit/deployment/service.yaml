@@ -1,0 +1,14 @@
+# Service resource to access application from outside world
+apiVersion: v1
+kind: Service
+metadata:
+  name: springbootk8s-service
+  labels:
+    "springboot": k8s
+spec:
+  ports:
+    - port: 8080 # Host access port for application
+      protocol: TCP
+  selector:
+    app: springbootk8sdbconnect
+  type: LoadBalancer # Uses external service
