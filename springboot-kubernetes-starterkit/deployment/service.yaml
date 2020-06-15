@@ -11,4 +11,4 @@ spec:
       protocol: TCP
   selector:
     app: springbootk8sdbconnect
-  type: LoadBalancer # Uses external service
+  type: LoadBalancer # Uses external service managed by load balancer
