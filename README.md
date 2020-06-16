@@ -1,2 +1,7 @@
-# springboot-kubernetes-starterkit
-<a><img src="images/spring-kubernetes-mysql-architecture.png"></a>
+<h1 align="center">
+  <br>
+  <a><img src="images/springbootpluskubernetes.png" width="550" a>
+  <br>
+  springboot-kubernetes-starterkit
+  <br>
+</h1>
