@@ -28,4 +28,12 @@ For Kubernetes you can use simple [Docker for Desktop](https://www.docker.com/pr
 * Check status with: kubectl get pods
   
 ## Architecture
+Our sample springboot-k8s based application system  consists of the following components:
+
+* **Springboot-service** - A springboot app that allows to perform CRUD operation on JPA Repository of technology.
+* **Mysql-service** - It is a mysql server hosted inside the pod that only allows to connect springbooot application for CRUD operations.
+* **Persistent Volume** - A Persistent Volume Claim(PVC) which is responsible to store all the data and transaction made by the app, This volume can be mounted back even application is lost.
+* **Secrets** - Secrets let you store and manage sensitive information, such as mysql password,username and host in encrypted format.
+* **ConfigMap** - A ConfigMap is an API object used to store non-confidential data in key-value pairs such as mysql table info and data.
+
  <a><img src="images/spring-kubernetes-mysql-architecture.png"></a>
