@@ -23,9 +23,6 @@ For Kubernetes you can use simple [Docker for Desktop](https://www.docker.com/pr
 * Download and Start Docker and Kubernetes services
 * Build Maven project with using command: mvn clean install
 * Build Docker images for each module using command, for example: docker build -t ishaansolanki6/springbootk8s:0.0.1 .
-* Go to /deployment directory in repository
-* Apply all templates to using command: kubectl apply -f <filename>.yaml
-* Check status with: kubectl get pods
   
 ## Architecture
 Our sample springboot-k8s based application system  consists of the following components:
@@ -40,4 +37,5 @@ Our sample springboot-k8s based application system  consists of the following co
  
  ## Deploy and Run
  
- 
+ * Go to k8s-mysql folder and apply all the files using ccommand : $ kubectl apply -f <filename>.yaml
+ * To check if the manifest resources are created : $ kubectl get pods , $ kubectl get svc , $ kubectl get deploy  
