@@ -13,3 +13,15 @@ Here in this starter kit you will be introduced to list below :
 * A simple spring boot application with a basic model structure performing a CRUD operation. The example is available in the branch master.
 * An introduction to Kubernetes with spring boot project, that shows its the most interesting features like Spring Boot, MySql property sources based on ConfigMap and Secret. 
 * Using Spring Boot to monitor Spring Boot applications running on Kubernetes using external endpoint exposed by load balancer. 
+
+### Prerequisite
+Installed: [Docker](https://www.docker.com/), [Java 1.8](https://www.oracle.com/technetwork/java/javase/overview/index.html), [Maven 3.x](https://maven.apache.org/install.html), [Git](https://www.digitalocean.com/community/tutorials/how-to-contribute-to-open-source-getting-started-with-git)
+For Kubernetes you can use simple [Docker for Desktop](https://www.docker.com/products/docker-desktop) in local machine , here you can enable Kubernetes service.
+
+### Usage
+* Download and Start Docker and Kubernetes services
+* Build Maven project with using command: mvn clean install
+* Build Docker images for each module using command, for example: docker build -t ishaansolanki6/springbootk8s:0.0.1 .
+Go to /deployment directory in repository
+Apply all templates to using command: kubectl apply -f <filename>.yaml
+Check status with kubectl get pods
