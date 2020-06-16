@@ -41,7 +41,9 @@ Our sample springboot-k8s based application system  consists of the following co
  * To check if the manifest resources are created : $ kubectl get pods , $ kubectl get svc , $ kubectl get deploy.
  * Do same with k8-springboot apply all the files using above command.
  
- ** To check application is ruuning ** 
+ **To check application is running**
+ 
+ 
  
  
  
