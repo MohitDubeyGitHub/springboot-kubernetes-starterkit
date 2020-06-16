@@ -37,9 +37,9 @@ Our sample springboot-k8s based application system  consists of the following co
  
  ## Deploy and Run
  
- * Go to k8s-mysql folder and apply all the files using ccommand : $ kubectl apply -f <filename>.yaml
+ * Go to /k8s-mysql folder and apply all the files using ccommand : $ kubectl apply -f <filename>.yaml
  * To check if the manifest resources are created : $ kubectl get pods , $ kubectl get svc , $ kubectl get deploy.
- * Do same with k8-springboot apply all the files using above command.
+ * Do same with /k8-springboot folder apply all the files using above command.
  
  **To check application is running**\
  Perform CRUD opertation using below commands:\
