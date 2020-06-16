@@ -26,3 +26,6 @@ For Kubernetes you can use simple [Docker for Desktop](https://www.docker.com/pr
 * Go to /deployment directory in repository
 * Apply all templates to using command: kubectl apply -f <filename>.yaml
 * Check status with: kubectl get pods
+  
+## Architecture
+ <a><img src="images/spring-kubernetes-mysql-architecture.png" width="500" height="220" a>
