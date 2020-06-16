@@ -22,6 +22,6 @@ For Kubernetes you can use simple [Docker for Desktop](https://www.docker.com/pr
 * Download and Start Docker and Kubernetes services
 * Build Maven project with using command: mvn clean install
 * Build Docker images for each module using command, for example: docker build -t ishaansolanki6/springbootk8s:0.0.1 .
-Go to /deployment directory in repository
-Apply all templates to using command: kubectl apply -f <filename>.yaml
-Check status with kubectl get pods
+* Go to /deployment directory in repository
+* Apply all templates to using command: kubectl apply -f <filename>.yaml
+* Check status with: kubectl get pods
