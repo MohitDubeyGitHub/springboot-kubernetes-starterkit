@@ -42,8 +42,25 @@ Our sample springboot-k8s based application system  consists of the following co
  * Do same with k8-springboot apply all the files using above command.
  
  **To check application is running**
- 
- 
- 
- 
- 
+ Perform CRUD opertation using below commands:
+ To Create:
+ ```
+ curl --location --request POST 'http://localhost:8080/api/v1/technology' \
+--header 'Content-Type: application/json' \
+--data-raw '{"name":"python","framework":"flask"}'
+ ```
+ To Update:
+ ```
+ curl --location --request PUT 'http://localhost:8080/api/v1/technology/python' \
+--header 'Content-Type: application/json' \
+--data-raw '{"name":"python","framework":"django"}'
+ ```
+ To Get:
+ ```
+ $ curl http://localhost:8080/api/v1/technology
+ ```
+ To Delete:
+ ```
+ curl --location --request DELETE 'http://localhost:8080/api/v1/technology/python' \
+--data-raw ''
+ ```
