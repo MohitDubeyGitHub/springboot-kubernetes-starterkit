@@ -35,5 +35,5 @@ Our sample springboot-k8s based application system  consists of the following co
 * **Persistent Volume** - A Persistent Volume Claim(PVC) which is responsible to store all the data and transaction made by the app, This volume can be mounted back even application is lost.
 * **Secrets** - Secrets let you store and manage sensitive information, such as mysql password,username and host in encrypted format.
 * **ConfigMap** - A ConfigMap is an API object used to store non-confidential data in key-value pairs such as mysql table info and data.
-
+* **LoadBalancer** - It is a service responsible to route traffic or access your application from external world.
  <a><img src="images/spring-kubernetes-mysql-architecture.png"></a>
