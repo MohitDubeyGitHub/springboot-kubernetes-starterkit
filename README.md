@@ -37,3 +37,7 @@ Our sample springboot-k8s based application system  consists of the following co
 * **ConfigMap** - A ConfigMap is an API object used to store non-confidential data in key-value pairs such as mysql table info and data.
 * **LoadBalancer** - It is a service responsible to route traffic or access your application from external world.
  <a><img src="images/spring-kubernetes-mysql-architecture.png"></a>
+ 
+ ## Deploy and Run
+ 
+ 
