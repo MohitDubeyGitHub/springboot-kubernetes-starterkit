@@ -41,8 +41,8 @@ Our sample springboot-k8s based application system  consists of the following co
  * To check if the manifest resources are created : $ kubectl get pods , $ kubectl get svc , $ kubectl get deploy.
  * Do same with k8-springboot apply all the files using above command.
  
- **To check application is running**
- Perform CRUD opertation using below commands:
+ **To check application is running**\
+ Perform CRUD opertation using below commands:\
  To Create:
  ```
  curl --location --request POST 'http://localhost:8080/api/v1/technology' \
